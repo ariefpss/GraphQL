@@ -1,13 +1,15 @@
-const bcrypt = require('bcrypt');
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
-const usertype = require('../Query/UserType');
-const authdatatype = require('../Query/AuthDataType');
-const User = require('../Model/User');
 const {
     GraphQLNonNull,
     GraphQLString
 } = require('graphql');
+const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+
+const usertype = require('../Query/UserType');
+const authdatatype = require('../Query/AuthDataType');
+const User = require('../Model/User');
+
 
 const addUser = {
     type:usertype,

@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 mongoose.connect(
-    'mongodb://localhost:27017/todoAppGraphql',
+    'mongodb://localhost:27017/graphql',
     {useNewUrlParser:true, useUnifiedTopology: true, useCreateIndex: true,},
     () => {
         console.log("Successfully connect database");   
