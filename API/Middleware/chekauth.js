@@ -13,7 +13,20 @@ module.exports = (req, res, next) => {
         return next();
     }
 
-    const decode = jwt.verify(token, process.env.JWT_KEY);
+    let decode = jwt.verify(token, process.env.JWT_KEY);
+    // try{
+        
+    // }catch (err){
+    //     req.chekAuth = false;
+    //     return next();
+    // }
+    if (!decode){
+        req.chekAuth = false;
+        return next();
+    }
     
+    req.chekAuth = true;
+    req.userid = decode.userid;
+    next();
 
 };

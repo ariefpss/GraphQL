@@ -5,6 +5,7 @@ const {
     GraphQLNonNull
 } = require('graphql');
 
+//READ
 const UserType = new GraphQLObjectType({
     name:'User',
     description:'user type definition',

@@ -1,6 +1,8 @@
-var {addUser, loginUser} = require('./UserMutation');
+var {createUser, loginUser, deleteUser, updateUser} = require('./UserMutation');
 
 module.exports = {
-    addUser,
-    loginUser
+    createUser,
+    loginUser,
+    deleteUser, 
+    updateUser
 };

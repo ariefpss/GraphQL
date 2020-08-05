@@ -2,8 +2,9 @@ const express = require('express');
 const grahpqlExprs = require('express-graphql');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const schema = require('./API/SchemaApp');
 const app = express();
+const schema = require('./API/SchemaApp');
+const chekAuth = require('./API/Middleware/chekauth');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -16,7 +17,7 @@ mongoose.connect(
     }
 );
 
-
+app.use(chekAuth);
 
 app.use('/graphql', grahpqlExprs({
     schema: schema,

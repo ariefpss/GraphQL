@@ -10,8 +10,8 @@ const usertype = require('../Query/UserType');
 const authdatatype = require('../Query/AuthDataType');
 const User = require('../Model/User');
 
-
-const addUser = {
+//CREATE
+const createUser = {
     type:usertype,
     args:{
         email: {type: new GraphQLNonNull(GraphQLString)},
@@ -37,6 +37,42 @@ const addUser = {
     } 
 };
 
+//UPDATE
+const updateUser ={
+    type: usertype,
+    args:{
+        _id: {type: new GraphQLNonNull(GraphQLString)},
+        email: {type: new GraphQLNonNull(GraphQLString)}
+    },
+    resolve: async function(root, args, req){
+        if (!req.chekAuth) throw new Error('Unauthenticated!');
+
+        let updtuser = {};
+        if (args.email) updtuser.email = args.email;
+        
+        const updateuser = await User.findByIdAndUpdate(args._id, updtuser, {new: true});
+        if (!updateuser) throw new Error('User id dont exists');
+
+        return updateuser;
+    }
+}
+
+//DELETE
+const deleteUser = {
+    type:usertype,
+    args:{
+        _id:{type: new GraphQLNonNull(GraphQLString)}
+    },
+    resolve: async function(root, args, req){
+        if (!req.chekAuth) throw new Error('Unauthenticated!');
+
+        const deleteuser = await User.findByIdAndRemove(args._id);
+        if(!deleteuser) throw new Error('User id dont exists');
+        return deleteuser;
+    }
+};
+
+//LOGIN USER
 const loginUser = {
     type:authdatatype,
     args:{
@@ -61,4 +97,4 @@ const loginUser = {
     }
 };
 
-module.exports = {addUser, loginUser};
+module.exports = {createUser, loginUser, deleteUser, updateUser};
